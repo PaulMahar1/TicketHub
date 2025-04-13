@@ -1,0 +1,23 @@
+.jumbotron-image {
+  /* background-position: center -300px; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 400px;
+  border-radius: 7px;
+  display: flex;
+  flex-direction: column;
+}
+
+.likes {
+  text-align: left;
+}
+
+.concerntName {
+  color: whitesmoke;
+  text-shadow: 2px 2px 3px black;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+
+  
