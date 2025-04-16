@@ -72,12 +72,13 @@ function Form({ concertIdIn, ticketPrice }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData), // Corrected: Using formData instead of undefined 'values'
+        body: JSON.stringify(formData), 
       });
 
       if (!response.ok) {
+        
         const errorData = await response.json();
-        if (errorData?.status === 400 && errorData?.errors) { // Added optional chaining and existence check
+        if (errorData?.status === 400 && errorData?.errors) { 
           const errorMessages = [];
           for (const errorType in errorData.errors) {
             if (errorData.errors.hasOwnProperty(errorType) && Array.isArray(errorData.errors[errorType])) {
@@ -87,7 +88,7 @@ function Form({ concertIdIn, ticketPrice }) {
             }
           }
           setErrorMessage(errorMessages);
-        } else if (errorData?.title) { // Handle other server errors with a title
+        } else if (errorData?.title) { 
           setErrorMessage([`Server Error: ${errorData.title}`]);
         } else {
           setErrorMessage([`HTTP error! status: ${response.status}`]);
@@ -97,7 +98,7 @@ function Form({ concertIdIn, ticketPrice }) {
 
       setSubmittedForm(true);
       setErrorMessage([]);
-      // Optionally reset the form after successful submission
+
       setFormData({
         concertId: concertIdIn,
         email: '',
