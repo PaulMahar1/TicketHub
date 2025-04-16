@@ -63,10 +63,39 @@ function Form({concertIdIn, ticketPrice}) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
       };
     
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        // You can add more advanced validation or post request here
-        console.log('Submitted:', formData);
+      const handleSubmit = async (event) => {
+        event.preventDefault();
+      
+        try {
+          const response = await fetch('https://nscc-0179231-tickets-api-h0g5g7hybedmhdd3.canadacentral-01.azurewebsites.net/api/Ticket', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+          });
+      
+          if (!response.ok) {
+            const errorData = await response.json();
+            if (errorData.status === 400) {
+              const errorMessages = [];
+              for (const errorType in errorData.errors) {
+                if (errorData.errors.hasOwnProperty(errorType) && Array.isArray(errorData.errors[errorType])) {
+                  errorData.errors[errorType].forEach((error) => {
+                    errorMessages.push(`${errorType}: ${error}`);
+                  });
+                }
+              }
+              setErrorMessage(errorMessages);
+            }
+            return;
+          }
+      
+          setSubmittedForm(true);
+          setErrorMessage([]);
+        } catch (error) {
+          setErrorMessage(["Unknown: An error occurred. Please try again later."]);
+        }
       };
     
     return(
