@@ -137,9 +137,9 @@ function Form({ concertIdIn, ticketPrice }) {
                 </div>
               )}
               <div className="mb-3">
-                <label className="form-label">Concert ID</label>
+                <label className="form-label"></label>
                 <input
-                  type="number"
+                  type="hidden"
                   className="form-control"
                   name="concertId"
                   required
